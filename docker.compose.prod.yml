@@ -1,0 +1,72 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: ./fampay_assignment
+      dockerfile: Dockerfile.prod
+    command: >
+      sh -c "gunicorn fampay_assignment.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - static_volume:/home/app/
+    expose:
+      - 8000
+    env_file:
+      - ./.env.prod
+    depends_on:
+      - db
+      - redis_db
+  db:
+    image: postgres:13.0-alpine
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    env_file:
+      - ./.env.prod.db
+
+  redis_db:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+    volumes:
+      - redisdata:/data
+
+  nginx:
+    build: ./nginx
+    volumes:
+      - static_volume:/home/app/
+    ports:
+      - 1337:80
+    depends_on:
+      - web 
+  
+  celery:
+    build:
+      context: ./fampay_assignment
+      dockerfile: Dockerfile.prod 
+    env_file:
+      - ./.env.prod
+    command: celery  -A fampay_assignment worker -l info
+    volumes:
+      - static_volume:/home/app/
+    depends_on:
+     - database
+     - redis_db
+
+  celery-beat:
+    build:
+      context: ./fampay_assignment
+      dockerfile: Dockerfile.prod 
+    env_file:
+      - ./.env.prod
+    command: celery -A fampay_assignment beat -l info
+    volumes:
+      - static_volume:/home/app/
+    depends_on:
+      - db
+      - redis_db
+      - celery
+  
+volumes:
+  postgres_data:
+  redisdata:
+  static_volume:
