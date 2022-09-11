@@ -5,7 +5,7 @@ This backend assignment is made in django-rest-framework on postgresql database 
 I have setup a celery beat running every 10 minutes for asynchronous task scheduling, with docker compose.
 
 ## API Documentation
-1) Listing api of youtube fetched data works on get request giving paginated reponse \  
+1) Listing api of youtube fetched data works on get request giving paginated reponse
 Endpoint: ```http://localhost:1337/api/youtube/list```
 
 2) Searching api will return response of video data based on title and description given in query param. For fuzzy search I have used TrigramSimilarity querying given by postgresql for search.
