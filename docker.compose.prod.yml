@@ -29,15 +29,6 @@ services:
       - '6379:6379'
     volumes:
       - redisdata:/data
-
-  nginx:
-    build: ./nginx
-    volumes:
-      - static_volume:/home/app/
-    ports:
-      - 1337:80
-    depends_on:
-      - web 
   
   celery:
     build:
