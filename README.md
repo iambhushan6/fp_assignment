@@ -13,14 +13,13 @@ Endpoint: ```http://localhost:1337/api/youtube/search?title=python``` \
 Endpoint: ```http://localhost:1337/api/youtube/search?description={Youtube Video Description}```
 
 ## Run this project with docker or in localhost as below:
+# Dont forget to update your youtube apikey and django secret
 ```
-Update your apikey and secret in setting
-```
-# run this docker compose file 
 $ docker-compose -f docker-compose.prod.yml up -d --build 
 ``` 
 
 Server will start at ``` http://localhost:1337/ ``` 
+
 Thank YOU!
  
 
