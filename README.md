@@ -10,7 +10,7 @@ Endpoint: ```http://localhost:1337/api/youtube/list```
 
 2) Searching api will return response of video data based on title and description given in query param. For fuzzy search I have used TrigramSimilarity querying given by postgresql for search.
 Endpoint: ```http://localhost:1337/api/youtube/search?title=python``` \
-Endpoint: ```http://localhost:1337/api/youtube/search?description={Youtube Video Description}```
+Endpoint: ```http://localhost:1337/api/youtube/search?description=write description here```
 
 ## Run this project with docker or in localhost as below:
 ### Dont forget to update your youtube apikey and django secret
